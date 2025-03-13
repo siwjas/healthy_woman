@@ -1,7 +1,7 @@
 {
-  "name": "untitled-application",
+  "name": "mulher-saudavel",
   "version": "1.0.0",
-  "description": "Integrate Zapier with Untitled Application",
+  "description": "Integrate Zapier with "Mulher Saudável"",
   "main": "index.js",
   "scripts": {
     "test": "mocha --recursive -t 10000"

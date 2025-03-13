@@ -1,0 +1,154 @@
+<% content_for :breadcrumbs do %>
+  <%= render "shared/breadcrumb", current: "Detalhes do IMC", parents: [
+    {label: "Calculadoras de IMC", url: account_team_bmi_calculators_path(current_team)}
+  ] %>
+<% end %>
+
+<% content_for :actions do %>
+  <%= link_to "Editar", edit_account_bmi_calculator_path(@bmi_calculator), class: "btn btn-secondary mr-2" %>
+  <%= button_to "Excluir", account_bmi_calculator_path(@bmi_calculator), method: :delete, data: { confirm: "Tem certeza que deseja excluir esta calculadora?" }, class: "btn btn-danger" %>
+<% end %>
+
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-2xl font-bold mb-6">Detalhes do IMC</h1>
+
+  <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+    <div class="px-4 py-5 sm:px-6">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">Informações do IMC</h3>
+      <p class="mt-1 max-w-2xl text-sm text-gray-500">Detalhes e cálculos baseados no seu peso e altura.</p>
+    </div>
+    <div class="border-t border-gray-200">
+      <dl>
+        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">Peso atual</dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= @bmi_calculator.weight %> kg</dd>
+        </div>
+        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">Altura</dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= @bmi_calculator.height %> m</dd>
+        </div>
+        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">IMC</dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            <span class="font-bold text-lg"><%= @bmi_calculator.bmi.round(2) %></span>
+            <% 
+              status_class = case @bmi_calculator.weight_status
+                            when "Abaixo do peso"
+                              "bg-blue-100 text-blue-800"
+                            when "Peso normal"
+                              "bg-green-100 text-green-800"
+                            when "Sobrepeso"
+                              "bg-yellow-100 text-yellow-800"
+                            when "Obesidade Grau I"
+                              "bg-orange-100 text-orange-800"
+                            when "Obesidade Grau II"
+                              "bg-red-100 text-red-800"
+                            when "Obesidade Grau III"
+                              "bg-red-200 text-red-900"
+                            else
+                              "bg-gray-100 text-gray-800"
+                            end
+            %>
+            <span class="ml-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full <%= status_class %>">
+              <%= @bmi_calculator.weight_status %>
+            </span>
+          </dd>
+        </div>
+        <% if @bmi_calculator.is_pregnant? %>
+          <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm font-medium text-gray-500">Grávida</dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">Sim</dd>
+          </div>
+          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm font-medium text-gray-500">Peso pré-gravidez</dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= @bmi_calculator.pre_pregnancy_weight %> kg</dd>
+          </div>
+          <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm font-medium text-gray-500">Ganho de peso</dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= (@bmi_calculator.weight - @bmi_calculator.pre_pregnancy_weight).round(1) %> kg</dd>
+          </div>
+        <% end %>
+        <% if @bmi_calculator.weight_goal.present? %>
+          <div class="<%= @bmi_calculator.is_pregnant? ? 'bg-gray-50' : 'bg-white' %> px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm font-medium text-gray-500">Meta de peso</dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= @bmi_calculator.weight_goal %> kg</dd>
+          </div>
+          <div class="<%= @bmi_calculator.is_pregnant? ? 'bg-white' : 'bg-gray-50' %> px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm font-medium text-gray-500">Diferença para meta</dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= (@bmi_calculator.weight_goal - @bmi_calculator.weight).round(1) %> kg</dd>
+          </div>
+        <% end %>
+        <div class="<%= (@bmi_calculator.is_pregnant? && @bmi_calculator.weight_goal.present?) ? 'bg-gray-50' : (@bmi_calculator.is_pregnant? || @bmi_calculator.weight_goal.present? ? 'bg-white' : 'bg-gray-50') %> px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">Observações</dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= @bmi_calculator.notes.present? ? @bmi_calculator.notes : "Nenhuma observação registrada" %></dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+
+  <div class="mt-8 bg-white shadow overflow-hidden sm:rounded-lg">
+    <div class="px-4 py-5 sm:px-6">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">Interpretação do IMC</h3>
+      <p class="mt-1 max-w-2xl text-sm text-gray-500">O que o seu IMC significa para a sua saúde.</p>
+    </div>
+    <div class="border-t border-gray-200 px-4 py-5">
+      <% case @bmi_calculator.weight_status %>
+      <% when "Abaixo do peso" %>
+        <p class="text-sm text-gray-700 mb-4">Seu IMC indica que você está abaixo do peso ideal. Isso pode estar associado a deficiências nutricionais, sistema imunológico enfraquecido e outros problemas de saúde.</p>
+        <p class="text-sm text-gray-700">Recomendações:</p>
+        <ul class="list-disc pl-5 text-sm text-gray-700 mt-2">
+          <li>Consulte um nutricionista para um plano alimentar adequado</li>
+          <li>Aumente a ingestão de alimentos ricos em proteínas e calorias saudáveis</li>
+          <li>Considere exercícios de fortalecimento muscular</li>
+          <li>Faça exames regulares para verificar deficiências nutricionais</li>
+        </ul>
+      <% when "Peso normal" %>
+        <p class="text-sm text-gray-700 mb-4">Parabéns! Seu IMC está na faixa considerada saudável. Manter um peso adequado reduz o risco de diversas doenças crônicas.</p>
+        <p class="text-sm text-gray-700">Recomendações para manter a saúde:</p>
+        <ul class="list-disc pl-5 text-sm text-gray-700 mt-2">
+          <li>Continue com uma alimentação balanceada e variada</li>
+          <li>Pratique atividade física regularmente (pelo menos 150 minutos por semana)</li>
+          <li>Mantenha consultas médicas preventivas anuais</li>
+          <li>Monitore seu peso periodicamente</li>
+        </ul>
+      <% when "Sobrepeso" %>
+        <p class="text-sm text-gray-700 mb-4">Seu IMC indica que você está com sobrepeso. Isso pode aumentar o risco de desenvolver problemas de saúde como diabetes tipo 2, hipertensão e doenças cardiovasculares.</p>
+        <p class="text-sm text-gray-700">Recomendações:</p>
+        <ul class="list-disc pl-5 text-sm text-gray-700 mt-2">
+          <li>Adote uma dieta balanceada, rica em frutas, vegetais e grãos integrais</li>
+          <li>Reduza o consumo de alimentos processados, açúcares e gorduras saturadas</li>
+          <li>Pratique atividade física regularmente (pelo menos 150-300 minutos por semana)</li>
+          <li>Considere consultar um nutricionista para um plano alimentar personalizado</li>
+        </ul>
+      <% when "Obesidade Grau I", "Obesidade Grau II", "Obesidade Grau III" %>
+        <p class="text-sm text-gray-700 mb-4">Seu IMC indica obesidade <%= @bmi_calculator.weight_status.split(" ").last %>. A obesidade está associada a um risco aumentado de diversas condições de saúde, incluindo doenças cardíacas, diabetes, hipertensão, apneia do sono e alguns tipos de câncer.</p>
+        <p class="text-sm text-gray-700">Recomendações:</p>
+        <ul class="list-disc pl-5 text-sm text-gray-700 mt-2">
+          <li>Consulte um médico para uma avaliação completa de saúde</li>
+          <li>Trabalhe com um nutricionista para desenvolver um plano alimentar adequado</li>
+          <li>Inicie um programa de atividade física gradual, preferencialmente com orientação profissional</li>
+          <li>Considere acompanhamento psicológico, se necessário, para lidar com aspectos emocionais da alimentação</li>
+          <li>Estabeleça metas realistas de perda de peso (5-10% do peso inicial pode trazer benefícios significativos)</li>
+        </ul>
+      <% end %>
+      
+      <% if @bmi_calculator.is_pregnant? %>
+        <div class="mt-6 p-4 bg-blue-50 rounded-md">
+          <h4 class="text-sm font-medium text-blue-800">Considerações para gestantes</h4>
+          <p class="mt-2 text-sm text-blue-700">O IMC durante a gravidez deve ser interpretado com cautela. O ganho de peso recomendado durante a gestação varia de acordo com o IMC pré-gestacional:</p>
+          <ul class="list-disc pl-5 text-sm text-blue-700 mt-2">
+            <li>IMC abaixo de 18,5: ganho de 12,5 a 18 kg</li>
+            <li>IMC entre 18,5 e 24,9: ganho de 11,5 a 16 kg</li>
+            <li>IMC entre 25 e 29,9: ganho de 7 a 11,5 kg</li>
+            <li>IMC acima de 30: ganho de 5 a 9 kg</li>
+          </ul>
+          <p class="mt-2 text-sm text-blue-700">Consulte sempre seu obstetra para orientações personalizadas sobre ganho de peso durante a gravidez.</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mt-8">
+    <%= link_to "Voltar para a lista", account_team_bmi_calculators_path(current_team), class: "text-indigo-600 hover:text-indigo-900" %>
+  </div>
+</div>

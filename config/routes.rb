@@ -19,7 +19,11 @@ Rails.application.routes.draw do
     # To keep things organized, we put non-authenticated controllers in the `Public::` namespace.
     # The root `/` path is routed to `Public::HomeController#index` by default. You can set it
     # to whatever you want by doing something like this:
-    # root to: "my_new_root_controller#index"
+    root to: "home#index", as: "home"
+    
+    # Rotas públicas para artigos
+    resources :articles, only: [:index, :show]
+    get 'categories/:id', to: 'articles#category', as: 'category_articles'
   end
 
   namespace :webhooks do
@@ -60,6 +64,9 @@ Rails.application.routes.draw do
         # routes for many teams actions and resources are configured in the `bullet_train` gem, but you can add more here.
 
         # add your resources here.
+        resources :pregnancy_calculators
+        resources :menstrual_cycle_calculators
+        resources :bmi_calculators
 
         resources :invitations, extending do
           # routes for standard invitation actions and resources are configured in the `bullet_train` gem, but you can add more here.
@@ -71,6 +78,12 @@ Rails.application.routes.draw do
 
         namespace :integrations do
           # 🚅 super scaffolding will insert new integration installations above this line.
+        end
+
+        namespace :articles do
+          resources :categories do
+            resources :articles
+          end
         end
       end
     end

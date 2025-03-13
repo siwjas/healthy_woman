@@ -8,4 +8,8 @@ class Public::HomeController < Public::ApplicationController
 
   # Make Bullet Train's documentation available at `/docs`.
   include DocumentationSupport
+
+  def index
+    @articles = Articles::Article.all
+  end
 end

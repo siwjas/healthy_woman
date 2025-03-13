@@ -1,0 +1,8 @@
+<% article ||= @article %>
+<% category ||= @category || article&.category %>
+<%= render 'account/articles/categories/breadcrumbs', category: category %>
+<%= render 'account/shared/breadcrumb', label: t('.label'), url: [:account, category, :articles] %>
+<% if article&.persisted? %>
+  <%= render 'account/shared/breadcrumb', label: article.label_string, url: [:account, article] %>
+<% end %>
+<%= render 'account/shared/breadcrumbs/actions', only_for: 'articles/articles' %>

@@ -3,7 +3,7 @@ en:
     name: "Mulher Saudável"
     owner: Unidentified Developer
     description: "You can update this description in `config/locales/en/application.en.yml`."
-    keywords: "mulher saudável" seo keywords
+    keywords: "mulher saudável, seo keywords"
     support_email: change.me@localhost
     key: mulher_saudavel
   webhooks/outgoing/endpoints:

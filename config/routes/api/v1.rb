@@ -30,6 +30,12 @@ shallow do
       namespace :integrations do
         # 🚅 super scaffolding will insert new integration installations above this line.
       end
+
+      namespace :articles do
+        resources :categories do
+          resources :articles
+        end
+      end
     end
   end
 end

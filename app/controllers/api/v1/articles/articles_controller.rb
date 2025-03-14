@@ -4,9 +4,9 @@
 # We wrap this class in an `if` statement to circumvent this issue.
 if defined?(Api::V1::ApplicationController)
   class Api::V1::Articles::ArticlesController < Api::V1::ApplicationController
-    account_load_and_authorize_resource :article, through: :category, through_association: :articles
+    account_load_and_authorize_resource :article, through: :team, through_association: :articles_articles
 
-    # GET /api/v1/articles/categories/:category_id/articles
+    # GET /api/v1/articles/teams/:team_id/articles
     def index
     end
 
@@ -14,7 +14,7 @@ if defined?(Api::V1::ApplicationController)
     def show
     end
 
-    # POST /api/v1/articles/categories/:category_id/articles
+    # POST /api/v1/articles/teams/:team_id/articles
     def create
       if @article.save
         render :show, status: :created, location: [:api, :v1, @article]

@@ -76,8 +76,8 @@ Rails.application.configure do
   # if you want to change a default value specified here. Instead, simply re-specify the value in the section that
   # follows this section.
 
-  # disable asset pipeline.
-  config.assets.enabled = false
+  # enable asset pipeline.
+  config.assets.enabled = true
 
   # generate full urls using the base url configuration setting.
   unless default_url_options_from_base_url.empty?

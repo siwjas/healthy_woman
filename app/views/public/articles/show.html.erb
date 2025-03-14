@@ -10,16 +10,24 @@
 
   <div class="bg-white shadow overflow-hidden sm:rounded-lg">
     <% if @article.cover_image.attached? %>
-      <div class="w-full">
-        <%= image_tag @article.cover_image.variant(resize_to_limit: [1200, 600]), class: "w-full h-auto object-cover" %>
+      <div class="w-full flex justify-center">
+        <%= image_tag @article.cover_image.variant(resize_to_limit: [1200, 600]), class: "w-full h-auto object-cover mx-auto" %>
       </div>
     <% end %>
     <div class="px-4 py-5 sm:px-6">
       <h1 class="text-2xl font-bold text-gray-900"><%= @article.title %></h1>
-      <div class="mt-2 flex items-center text-sm text-gray-500">
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 mr-2">
-          <%= @article.category.name %>
-        </span>
+      <div class="mt-2 flex flex-wrap items-center text-sm text-gray-500">
+        <% if @article.categories.any? %>
+          <% @article.categories.each do |category| %>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 mr-2 mb-2">
+              <%= category.name %>
+            </span>
+          <% end %>
+        <% else %>
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 mr-2 mb-2">
+            Sem categoria
+          </span>
+        <% end %>
         <span><%= @article.created_at.strftime("%d/%m/%Y") %></span>
       </div>
     </div>

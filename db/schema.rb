@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_13_155300) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_14_021618) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -85,13 +85,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_13_155300) do
   end
 
   create_table "articles_articles", force: :cascade do |t|
-    t.bigint "category_id", null: false
     t.string "title"
     t.text "content"
     t.string "published"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["category_id"], name: "index_articles_articles_on_category_id"
+    t.bigint "team_id", null: false
+    t.index ["team_id"], name: "index_articles_articles_on_team_id"
   end
 
   create_table "articles_categories", force: :cascade do |t|
@@ -125,6 +125,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_13_155300) do
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "team_id", null: false
+    t.index ["team_id"], name: "index_bmi_calculators_on_team_id"
     t.index ["user_id", "created_at"], name: "index_bmi_calculators_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_bmi_calculators_on_user_id"
   end
@@ -185,6 +187,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_13_155300) do
     t.jsonb "symptoms"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "team_id", null: false
+    t.index ["team_id"], name: "index_menstrual_cycle_calculators_on_team_id"
     t.index ["user_id", "created_at"], name: "index_menstrual_cycle_calculators_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_menstrual_cycle_calculators_on_user_id"
   end
@@ -255,6 +259,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_13_155300) do
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "team_id", null: false
+    t.index ["team_id"], name: "index_pregnancy_calculators_on_team_id"
     t.index ["user_id", "created_at"], name: "index_pregnancy_calculators_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_pregnancy_calculators_on_user_id"
   end
@@ -422,10 +428,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_13_155300) do
   add_foreign_key "account_onboarding_invitation_lists", "teams"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "articles_articles", "articles_categories", column: "category_id"
+  add_foreign_key "articles_articles", "teams"
   add_foreign_key "articles_categories", "teams"
   add_foreign_key "articles_categorizations", "articles_articles", column: "article_id"
   add_foreign_key "articles_categorizations", "articles_categories", column: "category_id"
+  add_foreign_key "bmi_calculators", "teams"
   add_foreign_key "bmi_calculators", "users"
   add_foreign_key "integrations_stripe_installations", "oauth_stripe_accounts"
   add_foreign_key "integrations_stripe_installations", "teams"
@@ -436,11 +443,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_13_155300) do
   add_foreign_key "memberships", "oauth_applications", column: "platform_agent_of_id"
   add_foreign_key "memberships", "teams"
   add_foreign_key "memberships", "users"
+  add_foreign_key "menstrual_cycle_calculators", "teams"
   add_foreign_key "menstrual_cycle_calculators", "users"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_applications", "teams"
   add_foreign_key "oauth_stripe_accounts", "users"
+  add_foreign_key "pregnancy_calculators", "teams"
   add_foreign_key "pregnancy_calculators", "users"
   add_foreign_key "scaffolding_absolutely_abstract_creative_concepts", "teams"
   add_foreign_key "scaffolding_completely_concrete_tangible_things", "scaffolding_absolutely_abstract_creative_concepts", column: "absolutely_abstract_creative_concept_id"

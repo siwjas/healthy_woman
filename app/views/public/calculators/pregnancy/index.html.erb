@@ -1,0 +1,70 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold text-center text-indigo-800 mb-8">Calculadora de Gravidez</h1>
+    
+  <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden mb-8">
+    <div class="p-6">
+      <h2 class="text-xl font-bold text-gray-800 mb-4">Calcule sua data provável do parto</h2>
+      <p class="text-gray-600 mb-6">Informe a data da sua última menstruação para calcular a data provável do parto e a idade gestacional.</p>
+      
+      <%= form_with model: @pregnancy_calculator, url: calculators_pregnancy_calculate_path, local: true do |f| %>
+        <div class="mb-4">
+          <%= f.label :last_menstrual_period_date, "Data da última menstruação", class: "block text-gray-700 font-medium mb-2" %>
+          <%= f.date_field :last_menstrual_period_date, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+        </div>
+        
+        <div class="mb-4">
+          <%= f.label :notes, "Observações (opcional)", class: "block text-gray-700 font-medium mb-2" %>
+          <%= f.text_area :notes, rows: 3, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+        </div>
+        
+        <div class="flex justify-center">
+          <%= f.submit "Calcular", class: "bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+    
+  <% if @last_calculation.present? %>
+    <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+      <div class="bg-indigo-600 px-6 py-4">
+        <h2 class="text-xl font-bold text-white">Seu último cálculo</h2>
+        <p class="text-indigo-200 text-sm">Realizado em <%= @last_calculation[:created_at].strftime("%d/%m/%Y às %H:%M") %></p>
+      </div>
+      <div class="p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-indigo-50 rounded-lg p-4">
+            <h3 class="text-sm font-medium text-indigo-800 mb-1">Data da última menstruação</h3>
+            <p class="text-lg font-bold text-gray-800"><%= @last_calculation[:last_menstrual_period_date].strftime("%d/%m/%Y") %></p>
+          </div>
+          
+          <div class="bg-indigo-50 rounded-lg p-4">
+            <h3 class="text-sm font-medium text-indigo-800 mb-1">Data provável do parto</h3>
+            <p class="text-lg font-bold text-gray-800"><%= @last_calculation[:due_date].strftime("%d/%m/%Y") %></p>
+          </div>
+          
+          <div class="bg-indigo-50 rounded-lg p-4">
+            <h3 class="text-sm font-medium text-indigo-800 mb-1">Idade gestacional</h3>
+            <p class="text-lg font-bold text-gray-800"><%= @last_calculation[:weeks] %> semanas e <%= @last_calculation[:days] %> dias</p>
+          </div>
+          
+          <div class="bg-indigo-50 rounded-lg p-4">
+            <h3 class="text-sm font-medium text-indigo-800 mb-1">Trimestre atual</h3>
+            <p class="text-lg font-bold text-gray-800"><%= @last_calculation[:trimester] %>º trimestre</p>
+          </div>
+        </div>
+        
+        <div class="mt-6 text-center">
+          <p class="text-gray-600 mb-4">Para acessar seu histórico completo de cálculos e acompanhar sua gravidez:</p>
+          <div class="flex justify-center space-x-4">
+            <%= link_to "Entrar", new_user_session_path, class: "bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg" %>
+            <%= link_to "Criar conta", new_user_registration_path, class: "bg-white hover:bg-gray-100 text-indigo-600 font-bold py-2 px-4 rounded-lg border border-indigo-600" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+    
+    <div class="mt-8 text-center">
+      <%= link_to "Voltar para a página inicial", root_path, class: "text-indigo-600 hover:text-indigo-800" %>
+  </div>
+</div>

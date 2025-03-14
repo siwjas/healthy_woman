@@ -2,6 +2,8 @@ en:
   articles/articles: &articles
     label: &label Articles
     breadcrumbs:
+      home: "Home"
+      articles: "Articles"
       label: *label
     navigation:
       label: *label
@@ -72,12 +74,16 @@ en:
       destroy: "Delete a Article"
       fields: *fields
     index:
-      section: "%{categories_possessive} Articles"
+      section: "Articles"
       contexts:
         articles/category:
           header: Articles
           description: Below is a list of Articles that have been added for %{category_name}.
           description_empty: No Articles have been added for %{category_name}.
+        nil_class:
+          header: All Articles
+          description: Below is a list of all Articles.
+          description_empty: No Articles have been added yet.
       fields: *fields
       buttons: *buttons
     show:
@@ -107,6 +113,9 @@ en:
   account:
     articles:
       articles: *articles
+      breadcrumbs:
+        home: "Home"
+        articles: "Articles"
   activerecord:
     attributes:
       articles/article:

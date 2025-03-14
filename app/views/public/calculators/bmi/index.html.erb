@@ -1,0 +1,71 @@
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-center text-green-800 mb-8">Calculadora de IMC</h1>
+    
+    <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden mb-8">
+      <div class="p-6">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">Calcule seu Índice de Massa Corporal</h2>
+        <p class="text-gray-600 mb-6">O IMC é uma medida internacional usada para calcular se uma pessoa está no peso ideal.</p>
+        
+        <%= form_with model: @bmi_calculator, url: calculators_bmi_calculate_path, local: true do |f| %>
+          <div class="mb-4">
+            <%= f.label :weight, "Peso (kg)", class: "block text-gray-700 font-medium mb-2" %>
+            <%= f.number_field :weight, step: 0.1, min: 30, max: 300, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+          
+          <div class="mb-4">
+            <%= f.label :height, "Altura (m)", class: "block text-gray-700 font-medium mb-2" %>
+            <%= f.number_field :height, step: 0.01, min: 1.0, max: 2.5, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+            <p class="text-xs text-gray-500 mt-1">Exemplo: para 1,70m, digite 1.70</p>
+          </div>
+          
+          <div class="flex justify-center">
+            <%= f.submit "Calcular", class: "bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    
+    <% if @last_calculation.present? %>
+      <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="bg-green-600 px-6 py-4">
+          <h2 class="text-xl font-bold text-white">Seu último cálculo</h2>
+          <p class="text-green-200 text-sm">Realizado em <%= @last_calculation[:created_at].strftime("%d/%m/%Y às %H:%M") %></p>
+        </div>
+        <div class="p-6">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-green-50 rounded-lg p-4">
+              <h3 class="text-sm font-medium text-green-800 mb-1">Peso</h3>
+              <p class="text-lg font-bold text-gray-800"><%= @last_calculation[:weight] %> kg</p>
+            </div>
+            
+            <div class="bg-green-50 rounded-lg p-4">
+              <h3 class="text-sm font-medium text-green-800 mb-1">Altura</h3>
+              <p class="text-lg font-bold text-gray-800"><%= @last_calculation[:height] %> m</p>
+            </div>
+            
+            <div class="bg-green-50 rounded-lg p-4">
+              <h3 class="text-sm font-medium text-green-800 mb-1">IMC</h3>
+              <p class="text-lg font-bold text-gray-800"><%= @last_calculation[:bmi] %></p>
+            </div>
+          </div>
+          
+          <div class="mt-6 bg-green-50 rounded-lg p-4">
+            <h3 class="text-sm font-medium text-green-800 mb-1">Classificação</h3>
+            <p class="text-lg font-bold text-gray-800"><%= @last_calculation[:category] %></p>
+          </div>
+          
+          <div class="mt-6 text-center">
+            <p class="text-gray-600 mb-4">Para acessar seu histórico completo de IMC e acompanhar sua evolução:</p>
+            <div class="flex justify-center space-x-4">
+              <%= link_to "Entrar", new_user_session_path, class: "bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg" %>
+              <%= link_to "Criar conta", new_user_registration_path, class: "bg-white hover:bg-gray-100 text-green-600 font-bold py-2 px-4 rounded-lg border border-green-600" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    
+    <div class="mt-8 text-center">
+      <%= link_to "Voltar para a página inicial", root_path, class: "text-green-600 hover:text-green-800" %>
+    </div>
+</div>

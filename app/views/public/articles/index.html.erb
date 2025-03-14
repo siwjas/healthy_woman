@@ -21,7 +21,16 @@
                       <% end %>
                       <div class="flex-1 min-w-0">
                         <p class="text-lg font-medium text-indigo-600 truncate"><%= article.title %></p>
-                        <p class="text-sm text-gray-500">Categoria: <%= article.category.name %></p>
+                        <p class="text-sm text-gray-500">
+                          <% if article.categories.any? %>
+                            Categorias: 
+                            <% article.categories.each_with_index do |category, index| %>
+                              <%= category.name %><%= ", " unless index == article.categories.size - 1 %>
+                            <% end %>
+                          <% else %>
+                            Sem categoria
+                          <% end %>
+                        </p>
                         <p class="mt-1 text-sm text-gray-500"><%= article.created_at.strftime("%d/%m/%Y") %></p>
                       </div>
                       <div>

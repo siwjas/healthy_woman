@@ -1,0 +1,108 @@
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-center text-green-800 mb-8">Resultado do Cálculo</h1>
+    
+    <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden mb-8">
+      <div class="bg-green-600 px-6 py-4">
+        <h2 class="text-xl font-bold text-white">Seu IMC</h2>
+        <p class="text-green-200 text-sm">Cálculo realizado em <%= Time.current.strftime("%d/%m/%Y às %H:%M") %></p>
+      </div>
+      <div class="p-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-green-50 rounded-lg p-4">
+            <h3 class="text-sm font-medium text-green-800 mb-1">Peso</h3>
+            <p class="text-lg font-bold text-gray-800"><%= @bmi_calculator.weight %> kg</p>
+          </div>
+          
+          <div class="bg-green-50 rounded-lg p-4">
+            <h3 class="text-sm font-medium text-green-800 mb-1">Altura</h3>
+            <p class="text-lg font-bold text-gray-800"><%= @bmi_calculator.height %> m</p>
+          </div>
+          
+          <div class="bg-green-50 rounded-lg p-4">
+            <h3 class="text-sm font-medium text-green-800 mb-1">IMC</h3>
+            <p class="text-lg font-bold text-gray-800"><%= @bmi_calculator.bmi %></p>
+          </div>
+        </div>
+        
+        <div class="mt-6 bg-green-50 rounded-lg p-4">
+          <h3 class="text-sm font-medium text-green-800 mb-1">Classificação</h3>
+          <p class="text-lg font-bold text-gray-800"><%= @bmi_calculator.bmi_category %></p>
+          
+          <div class="mt-4">
+            <div class="w-full bg-gray-200 rounded-full h-2.5">
+              <% 
+                percent = case @bmi_calculator.bmi_category
+                when "Abaixo do peso"
+                  (@bmi_calculator.bmi / 18.5) * 100
+                when "Peso normal"
+                  ((@bmi_calculator.bmi - 18.5) / 6.5) * 100 + 20
+                when "Sobrepeso"
+                  ((@bmi_calculator.bmi - 25) / 5) * 100 + 60
+                when "Obesidade"
+                  ((@bmi_calculator.bmi - 30) / 10) * 100 + 80
+                else
+                  100
+                end
+                
+                color = case @bmi_calculator.bmi_category
+                when "Abaixo do peso"
+                  "bg-blue-500"
+                when "Peso normal"
+                  "bg-green-500"
+                when "Sobrepeso"
+                  "bg-yellow-500"
+                when "Obesidade"
+                  "bg-red-500"
+                else
+                  "bg-red-700"
+                end
+              %>
+              <div class="<%= color %> h-2.5 rounded-full" style="width: <%= [percent, 100].min %>%"></div>
+            </div>
+            <div class="flex justify-between text-xs text-gray-600 mt-1">
+              <span>16</span>
+              <span>18.5</span>
+              <span>25</span>
+              <span>30</span>
+              <span>40</span>
+            </div>
+            <div class="flex justify-between text-xs text-gray-600 mt-1">
+              <span>Abaixo</span>
+              <span>Normal</span>
+              <span>Sobrepeso</span>
+              <span>Obesidade</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-6 bg-gray-50 rounded-lg p-4">
+          <h3 class="text-sm font-medium text-gray-800 mb-2">Recomendações</h3>
+          <% case @bmi_calculator.bmi_category %>
+          <% when "Abaixo do peso" %>
+            <p class="text-gray-700">Seu IMC indica que você está abaixo do peso ideal. Considere consultar um nutricionista para orientações sobre como ganhar peso de forma saudável.</p>
+          <% when "Peso normal" %>
+            <p class="text-gray-700">Parabéns! Seu IMC está na faixa considerada saudável. Continue mantendo hábitos alimentares equilibrados e prática regular de atividades físicas.</p>
+          <% when "Sobrepeso" %>
+            <p class="text-gray-700">Seu IMC indica sobrepeso. Considere adotar uma alimentação mais equilibrada e aumentar a prática de atividades físicas. Consultar um nutricionista pode ajudar.</p>
+          <% when "Obesidade" %>
+            <p class="text-gray-700">Seu IMC indica obesidade. Recomendamos que você consulte um médico e um nutricionista para orientações personalizadas sobre como melhorar sua saúde.</p>
+          <% else %>
+            <p class="text-gray-700">Seu IMC indica obesidade grave. É importante buscar orientação médica especializada para desenvolver um plano de saúde adequado às suas necessidades.</p>
+          <% end %>
+        </div>
+        
+        <div class="mt-8 text-center">
+          <p class="text-gray-600 mb-4">Para acessar seu histórico completo de IMC e acompanhar sua evolução:</p>
+          <div class="flex justify-center space-x-4">
+            <%= link_to "Entrar", new_user_session_path, class: "bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg" %>
+            <%= link_to "Criar conta", new_user_registration_path, class: "bg-white hover:bg-gray-100 text-green-600 font-bold py-2 px-4 rounded-lg border border-green-600" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="flex justify-center space-x-4 mt-6">
+      <%= link_to "Fazer novo cálculo", calculators_bmi_path, class: "bg-green-100 hover:bg-green-200 text-green-700 font-bold py-2 px-4 rounded-lg" %>
+      <%= link_to "Voltar para a página inicial", root_path, class: "text-green-600 hover:text-green-800" %>
+    </div>
+</div>

@@ -6,10 +6,7 @@ class Articles::Category < ApplicationRecord
   belongs_to :team
   # 🚅 add belongs_to associations above.
 
-  # Relação antiga (será removida após migração completa)
-  has_many :old_articles, class_name: "Articles::Article", dependent: :nullify, foreign_key: :category_id, inverse_of: :category
-  
-  # Nova relação muitos-para-muitos com artigos
+  # Relação muitos-para-muitos com artigos
   has_many :categorizations, class_name: "Articles::Categorization", foreign_key: :category_id, dependent: :destroy
   has_many :articles, through: :categorizations, class_name: "Articles::Article", enable_cable_ready_updates: true
   # 🚅 add has_many associations above.

@@ -24,6 +24,18 @@ Rails.application.routes.draw do
     # Rotas públicas para artigos
     resources :articles, only: [:index, :show]
     get 'categories/:id', to: 'articles#category', as: 'category_articles'
+    
+    # Rotas públicas para calculadoras
+    namespace :calculators do
+      get 'pregnancy', to: 'pregnancy#index'
+      post 'pregnancy/calculate', to: 'pregnancy#calculate'
+      
+      get 'menstrual_cycle', to: 'menstrual_cycle#index'
+      post 'menstrual_cycle/calculate', to: 'menstrual_cycle#calculate'
+      
+      get 'bmi', to: 'bmi#index'
+      post 'bmi/calculate', to: 'bmi#calculate'
+    end
   end
 
   namespace :webhooks do
@@ -84,6 +96,7 @@ Rails.application.routes.draw do
           resources :categories do
             resources :articles
           end
+          resources :articles
         end
       end
     end

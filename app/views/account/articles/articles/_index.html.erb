@@ -39,9 +39,13 @@
 
       <% box.actions do %>
         <% unless hide_actions %>
-          <% if context == category %>
-            <% if can? :create, Articles::Article.new(category: category) %>
+          <% if context == category && category.present? %>
+            <% if can? :create, Articles::Article.new(category_ids: [category.id]) %>
               <%= link_to t('.buttons.new'), [:new, :account, category, :article], class: "#{first_button_primary(:article)} new" %>
+            <% end %>
+          <% else %>
+            <% if can? :create, Articles::Article.new(team: current_team) %>
+              <%= link_to t('.buttons.new'), [:new, :account, current_team, :articles_article], class: "#{first_button_primary(:article)} new" %>
             <% end %>
           <% end %>
 
@@ -50,7 +54,11 @@
           <%= render "shared/bulk_action_select" if articles.any? %>
 
           <% unless hide_back %>
-            <%= link_to t('global.buttons.back'), [:account, context], class: "#{first_button_primary(:article)} back" %>
+            <% if context.present? %>
+              <%= link_to t('global.buttons.back'), [:account, context], class: "#{first_button_primary(:article)} back" %>
+            <% else %>
+              <%= link_to t('global.buttons.back'), [:account, current_team], class: "#{first_button_primary(:article)} back" %>
+            <% end %>
           <% end %>
         <% end %>
       <% end %>

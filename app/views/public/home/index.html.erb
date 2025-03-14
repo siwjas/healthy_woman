@@ -24,7 +24,7 @@
             <h3 class="text-xl font-bold text-gray-800 mb-2">Calculadora de Gravidez</h3>
             <p class="text-gray-600 mb-4">Acompanhe sua gestação, calcule a data prevista do parto e monitore o desenvolvimento do bebê.</p>
             <div class="text-center">
-              <%= link_to "Saiba mais", new_user_session_path, class: "text-indigo-600 hover:text-indigo-800 font-medium" %>
+              <%= link_to "Acessar calculadora", calculators_pregnancy_path, class: "text-indigo-600 hover:text-indigo-800 font-medium" %>
             </div>
           </div>
         </div>
@@ -39,7 +39,7 @@
             <h3 class="text-xl font-bold text-gray-800 mb-2">Ciclo Menstrual</h3>
             <p class="text-gray-600 mb-4">Acompanhe seu ciclo menstrual, período fértil e tenha previsões precisas para os próximos meses.</p>
             <div class="text-center">
-              <%= link_to "Saiba mais", new_user_session_path, class: "text-indigo-600 hover:text-indigo-800 font-medium" %>
+              <%= link_to "Acessar calculadora", calculators_menstrual_cycle_path, class: "text-indigo-600 hover:text-indigo-800 font-medium" %>
             </div>
           </div>
         </div>
@@ -54,7 +54,7 @@
             <h3 class="text-xl font-bold text-gray-800 mb-2">Calculadora de IMC</h3>
             <p class="text-gray-600 mb-4">Calcule seu Índice de Massa Corporal e receba recomendações personalizadas para sua saúde.</p>
             <div class="text-center">
-              <%= link_to "Saiba mais", new_user_session_path, class: "text-indigo-600 hover:text-indigo-800 font-medium" %>
+              <%= link_to "Acessar calculadora", calculators_bmi_path, class: "text-indigo-600 hover:text-indigo-800 font-medium" %>
             </div>
           </div>
         </div>
@@ -69,11 +69,17 @@
         <% @articles.take(3).each do |article| %>
           <div class="bg-white rounded-lg shadow-lg overflow-hidden">
             <div class="p-6">
-              <div class="flex items-center mb-4">
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
-                  <%= article.category.name %>
-                </span>
-                <span class="text-sm text-gray-500 ml-2"><%= article.created_at.strftime("%d/%m/%Y") %></span>
+              <div class="flex flex-wrap items-center mb-4">
+                <% if article.categories.any? %>
+                  <div class="flex flex-wrap gap-1 mr-2">
+                    <% article.categories.each do |category| %>
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                        <%= category.name %>
+                      </span>
+                    <% end %>
+                  </div>
+                <% end %>
+                <span class="text-sm text-gray-500 ml-auto"><%= article.created_at.strftime("%d/%m/%Y") %></span>
               </div>
               <h3 class="text-xl font-bold text-gray-800 mb-2 truncate"><%= article.title %></h3>
               <div class="text-gray-600 mb-4 line-clamp-3">
@@ -91,12 +97,5 @@
       </div>
     </div>
     <% end %>
-
-    <!-- Rodapé -->
-    <div class="border-t border-gray-200 mt-12 pt-8 pb-12">
-      <div class="text-center text-gray-500">
-        <p>© <%= Time.current.year %> Mulher Saudável. Todos os direitos reservados.</p>
-      </div>
-    </div>
   </div>
 </div>

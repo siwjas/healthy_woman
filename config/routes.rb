@@ -100,5 +100,6 @@ Rails.application.routes.draw do
         end
       end
     end
+    post 'migrate_calculator_data', to: 'migrate_calculator_data#create'
   end
 end

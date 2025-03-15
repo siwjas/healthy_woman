@@ -5,8 +5,12 @@
       <%= render 'account/shared/box', divider: true do |box| %>
         <% box.title t('.header') %>
         <% box.description do %>
-          <%= t('.description') %>
-          <%= t('.manage_description') if can? :manage, @article %>
+          <%= t('.description', 
+                article_name: @article.title, 
+                category_name: t('articles.no_category')) %>
+          <%= t('.manage_description', 
+                article_name: @article.title, 
+                category_name: t('articles.no_category')) if can? :manage, @article %>
         <% end %>
 
         <% box.body do %>
@@ -23,7 +27,11 @@
           <%= link_to t('.buttons.edit'), [:edit, :account, @article], class: first_button_primary if can? :edit, @article %>
           <%# 🚅 super scaffolding will insert new action model buttons above this line. %>
           <%= button_to t('.buttons.destroy'), [:account, @article], method: :delete, class: first_button_primary, data: { confirm: t('.buttons.confirmations.destroy', model_locales(@article)) } if can? :destroy, @article %>
-          <%= link_to t('global.buttons.back'), [:account, @category, :articles], class: first_button_primary %>
+          <% if @article.categories.any? %>
+            <%= link_to t('global.buttons.back'), [:account, @article.categories.first, :articles], class: first_button_primary %>
+          <% else %>
+            <%= link_to t('global.buttons.back'), account_team_articles_articles_path(current_team), class: first_button_primary %>
+          <% end %>
         <% end %>
 
         <% box.raw_footer do %>

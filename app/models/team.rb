@@ -22,4 +22,8 @@ class Team < ApplicationRecord
   # 🚅 add delegations above.
 
   # 🚅 add methods above.
+
+  has_many :pregnancy_calculators, dependent: :destroy
+  has_many :menstrual_cycle_calculators, dependent: :destroy
+  has_many :bmi_calculators, dependent: :destroy
 end

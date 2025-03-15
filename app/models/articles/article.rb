@@ -25,6 +25,8 @@ class Articles::Article < ApplicationRecord
 
   # 🚅 add delegations above.
 
+  belongs_to :category, class_name: 'Articles::Category'
+
   def cover_image_removal?
     cover_image_removal.present?
   end

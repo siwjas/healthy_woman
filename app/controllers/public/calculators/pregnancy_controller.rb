@@ -1,8 +1,6 @@
 class Public::Calculators::PregnancyController < Public::ApplicationController
   def index
-    # Recupera o último cálculo da sessão, se existir
-    @last_calculation = session[:last_pregnancy_calculation]
-    @pregnancy_calculator = PregnancyCalculator.new
+    # Apenas renderiza a view - toda a lógica está no JavaScript
   end
 
   def calculate

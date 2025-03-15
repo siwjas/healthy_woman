@@ -13,6 +13,9 @@ class Account::Articles::ArticlesController < Account::ApplicationController
   # GET /account/articles/articles/:id
   # GET /account/articles/articles/:id.json
   def show
+    @article = Articles::Article.find(params[:id])
+    # Se o artigo pertence a uma categoria, devemos carregá-la:
+    @category = @article.categories.first if @article.categories.any?
     delegate_json_to_api
   end
 

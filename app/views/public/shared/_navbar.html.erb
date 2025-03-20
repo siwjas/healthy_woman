@@ -17,10 +17,10 @@
                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
               </svg>
             </button>
-            <div class="absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2 hidden group-hover:block">
-              <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
+            <div class="absolute z-10 -ml-4 mt-0 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2 hidden group-hover:block">
+              <div class="rounded-lg shadow-lg ring-1 ring-black border border-gray-300 ring-opacity-5 overflow-hidden">
                 <div class="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                  <%= link_to calculators_pregnancy_path, class: "flex items-start rounded-lg hover:bg-pink-200 rounded-md hover:shadow-lg p-3 transition ease-in-out duration-300" do %>
+                  <%= link_to "#", class: "flex items-start rounded-lg hover:bg-pink-200 rounded-md hover:shadow-lg p-3 transition ease-in-out duration-300" do %>
                     <div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-100 text-indigo-600">
                       <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -32,7 +32,7 @@
                     </div>
                   <% end %>
 
-                  <%= link_to calculators_menstrual_cycle_path, class: "flex items-start rounded-lg hover:bg-pink-200 rounded-md hover:shadow-lg p-3 transition ease-in-out duration-300" do %>
+                  <%= link_to "#", class: "flex items-start rounded-lg hover:bg-pink-200 rounded-md hover:shadow-lg p-3 transition ease-in-out duration-300" do %>
                     <div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-pink-100 text-pink-600">
                       <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -60,7 +60,7 @@
             </div>
           </div>
           
-          <%= link_to "Artigos", articles_path, class: "text-gray-500 hover:no-underline hover:text-gray-900 inline-flex items-center py-2 px-4 hover:bg-pink-200 rounded-md hover:shadow-lg text-sm font-medium transition ease-in-out duration-300" %>
+          <%= link_to "Artigos em breve", "#", class: "text-gray-500 hover:no-underline hover:text-gray-900 inline-flex items-center py-2 px-4 hover:bg-pink-200 rounded-md hover:shadow-lg text-sm font-medium transition ease-in-out duration-300" %>
         </div>
       </div>
       <div class="hidden sm:ml-6 sm:flex sm:items-center">
@@ -94,18 +94,18 @@
   <div class="mobile-menu hidden sm:hidden">
     <div class="pt-2 pb-3 space-y-1">
       <%= link_to "Home", root_path, class: "bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium" %>
-      <button class="mobile-submenu-button text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium w-full text-left flex justify-between items-center transition ease-in-out duration-300">
+      <button class="mobile-submenu-button text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium w-full text-left flex justify-between items-center transition ease-in-out duration-300">
         Calculadoras
         <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
           <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
         </svg>
       </button>
       <div class="mobile-submenu hidden pl-4">
-        <%= link_to "Calculadora de Gravidez", calculators_pregnancy_path, class: "text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium transition ease-in-out duration-300" %>
-        <%= link_to "Ciclo Menstrual", calculators_menstrual_cycle_path, class: "text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium transition ease-in-out duration-300" %>
+        <%= link_to "Calculadora de Gravidez", "#", class: "text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium transition ease-in-out duration-300" %>
+        <%= link_to "Ciclo Menstrual", "#", class: "text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium transition ease-in-out duration-300" %>
         <%= link_to "Calculadora de IMC", calculators_bmi_path, class: "text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium transition ease-in-out duration-300" %>
       </div>
-      <%= link_to "Artigos", articles_path, class: "text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium transition ease-in-out duration-300" %>
+      <%# link_to "Artigos", articles_path, class: "text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium transition ease-in-out duration-300" %>
     </div>
     <div class="pt-4 pb-3 border-t border-gray-200">
       <% if user_signed_in? %>
@@ -133,22 +133,4 @@
   </div>
 </nav>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Mobile menu toggle
-    const mobileMenuButton = document.querySelector('.mobile-menu-button');
-    const mobileMenu = document.querySelector('.mobile-menu');
-    
-    mobileMenuButton.addEventListener('click', function() {
-      mobileMenu.classList.toggle('hidden');
-    });
-    
-    // Mobile submenu toggle
-    const mobileSubmenuButton = document.querySelector('.mobile-submenu-button');
-    const mobileSubmenu = document.querySelector('.mobile-submenu');
-    
-    mobileSubmenuButton.addEventListener('click', function() {
-      mobileSubmenu.classList.toggle('hidden');
-    });
-  });
-</script>
+

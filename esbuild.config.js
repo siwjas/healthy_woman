@@ -1,6 +1,7 @@
 const path = require('path');
 const { execSync } = require("child_process");
 const glob = require('glob').sync
+const NodeGlobalsPolyfillPlugin = require('@esbuild-plugins/node-globals-polyfill').NodeGlobalsPolyfillPlugin
 
 // Glob plugin derived from:
 // https://github.com/thomaschaaf/esbuild-plugin-import-glob
@@ -67,6 +68,12 @@ if (process.env.THEME) {
   themeEntrypoints[`application.${process.env.THEME}`] = themeFile
 }
 
+const entryPoints = [
+  'application.js',
+  'controllers/index.js',
+  // ... outros entry points
+]
+
 let build_details = {
   entryPoints: {
     ...otherEntrypoints,
@@ -78,9 +85,6 @@ let build_details = {
     global: "window"
   },
   bundle: true,
-  // ESM + Splitting will only work if the script is type="module"
-  // splitting: true,
-  // format: "esm",
   format: "iife",
   sourcemap: true,
   outdir: path.join(process.cwd(), "app/assets/builds"),
@@ -94,14 +98,17 @@ let build_details = {
     ".eot": "file",
   },
   plugins: [
-    ImportGlobPlugin()
+    ImportGlobPlugin(),
+    NodeGlobalsPolyfillPlugin()
   ],
-  // TODO: Silencing warnings until the charset warning is fixed.
   logLevel: 'error'
 }
 
+// Função para servir em modo de desenvolvimento
 async function serve_with_esbuild() {
-  let ctx = await require("esbuild").context(build_details)
+  let ctx = await require("esbuild").context({
+    ...build_details,
+  })
 
   await ctx.watch()
 
@@ -110,8 +117,10 @@ async function serve_with_esbuild() {
   })
 }
 
+// Build normal ou modo de desenvolvimento
 if(process.argv.includes("--watch")) {
   serve_with_esbuild()
 } else {
   require("esbuild").build(build_details)
+    .catch(() => process.exit(1))
 }

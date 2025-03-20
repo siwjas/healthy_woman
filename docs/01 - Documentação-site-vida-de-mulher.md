@@ -1,13 +1,17 @@
 # Documentação: Desenvolvimento de Aplicação Web para Saúde da Mulher e Gravidez
 
 ## Visão Geral do Projeto
+
 Desenvolva uma aplicação web completa focada em saúde da mulher e gravidez, direcionada a dois públicos principais:
+
 1. Mulheres que desejam saber se estão grávidas ou que estão planejando uma gravidez
+
 2. Mulheres que já estão grávidas e buscam acompanhar sua gestação
 
 ## Funcionalidades Principais
 
 ### 1. Calculadora de Período Fértil
+
 - Interface intuitiva para inserção da data do último ciclo menstrual
 - Campo para informar a duração média do ciclo (com valor padrão de 28 dias)
 - Exibição visual do calendário com marcação dos dias férteis
@@ -15,6 +19,7 @@ Desenvolva uma aplicação web completa focada em saúde da mulher e gravidez, d
 - Notificações opcionais de aproximação do período fértil
 
 ### 2. Calculadora de Semanas de Gestação
+
 - Cálculo baseado na data da última menstruação (DUM)
 - Exibição da idade gestacional em semanas e dias
 - Visualização do trimestre atual da gravidez
@@ -22,6 +27,7 @@ Desenvolva uma aplicação web completa focada em saúde da mulher e gravidez, d
 - Informações sobre o desenvolvimento do bebê em cada semana
 
 ### 3. Calculadora de IMC (Índice de Massa Corporal)
+
 - Campos para inserção de peso e altura
 - Cálculo automático do IMC atual
 - Interpretação do resultado com recomendações específicas para gestantes
@@ -29,7 +35,9 @@ Desenvolva uma aplicação web completa focada em saúde da mulher e gravidez, d
 - Recomendações de ganho de peso adequado por trimestre
 
 ### 4. Biblioteca de Artigos Informativos
+
 Desenvolva uma seção de conteúdo com artigos sobre:
+
 - **Saúde da Mulher**: exames preventivos, nutrição, exercícios recomendados
 - **Métodos Anticoncepcionais**: tipos, eficácia, vantagens e desvantagens
 - **Cuidados Durante a Gravidez**: alimentação, atividades físicas, exames recomendados
@@ -40,6 +48,7 @@ Desenvolva uma seção de conteúdo com artigos sobre:
 - **Amamentação**: preparação, técnicas, desafios comuns
 
 ### 5. Sistema de Cadastro e Histórico de Resultados
+
 - Criação de conta nome, com e-mail e senha (ou integração com Google/Facebook)
 - Painel da usuária com histórico completo de todos os cálculos realizados
 - Visualização de gráficos de linha para acompanhamento dos resultados ao longo do tempo:
@@ -51,6 +60,7 @@ Desenvolva uma seção de conteúdo com artigos sobre:
 - **Aviso importante**: Implementar notificações claras indicando que sem cadastro os resultados serão perdidos ao sair do site
 
 ## Requisitos Técnicos
+
 - Utilizar *Ruby on Rails* 8 para desenvolvimento completo da aplicação
 - *Frontend* integrado usando *Tailwind CSS* para estilização e componentes
 - Implementar componentes UI avançados com Tailwind CSS
@@ -68,6 +78,7 @@ Desenvolva uma seção de conteúdo com artigos sobre:
 - Sistema de backup automático de dados de usuárias
 
 ## Considerações de UX/UI
+
 - Paleta de cores suave e acolhedora
 - Navegação intuitiva e simplificada
 - Carregamento rápido e experiência fluida
@@ -78,6 +89,7 @@ Desenvolva uma seção de conteúdo com artigos sobre:
 - Tutorial interativo para novos usuários explicando os benefícios do cadastro
 
 ## Recursos Adicionais Desejáveis
+
 - Função de perguntas frequentes (FAQ)
 - Glossário de termos médicos relacionados à gravidez
 - Comunidade/fórum para troca de experiências
@@ -86,6 +98,7 @@ Desenvolva uma seção de conteúdo com artigos sobre:
 - Lembretes por e-mail ou notificações push (para usuárias cadastradas)
 
 ## Observações Importantes
+
 - Todos os cálculos e informações devem incluir disclaimers médicos
 - O conteúdo deve ser baseado em fontes médicas confiáveis
 - Considerar aspectos culturais e socioeconômicos diversos

@@ -1,0 +1,7 @@
+en:
+  time:
+    formats:
+      short_date: "%-d, %^b, %Y"  # Example: 19, MAR, 2025
+      default: "%A, %B %d, %Y"
+      long: "%A, %B %d, %Y at %I:%M %p"
+      short: "%m/%d/%Y" 

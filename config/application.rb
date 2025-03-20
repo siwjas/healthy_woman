@@ -34,5 +34,11 @@ module MulherSaudavel
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
 
     BulletTrain::Api.set_configuration(self)
+
+    # Autoload lib/ and app/forms
+    config.autoload_paths += %W(#{config.root}/lib #{config.root}/app/forms)
+
+    # Garantir que a session está configurada
+    config.session_store :cookie_store, key: '_mulher_saudavel_session'
   end
 end

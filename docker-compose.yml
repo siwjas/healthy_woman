@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   redis:
     image: redis:latest
@@ -20,15 +18,6 @@ services:
   #   build: .
   #   ports:
   #     - "3000:3000"
-  #   environment:
-  #     REDIS_URL: redis://redis:6379/0
-  #   depends_on:
-  #     - redis
-
-  # Serviço Sidekiq para processamento em background
-  # worker:
-  #   build: .
-  #   command: bundle exec sidekiq
   #   environment:
   #     REDIS_URL: redis://redis:6379/0
   #   depends_on:

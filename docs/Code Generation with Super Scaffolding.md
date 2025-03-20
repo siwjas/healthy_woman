@@ -1,4 +1,4 @@
-#  Code Generation with Super Scaffolding
+# Code Generation with Super Scaffolding
 
 Super Scaffolding is Bullet Train’s code generation engine. Its goal is to allow you to produce production-ready CRUD interfaces for your models while barely lifting a finger, and it handles a lot of other grunt-work as well.
 
@@ -31,7 +31,7 @@ Before getting started with Super Scaffolding, we recommend reading about [the p
 
 The Super Scaffolding shell script provides its own documentation. If you're curious about specific scaffolders or parameters, you can run the following in your shell:
 
-```
+```ruby
 rails generate super_scaffold
 ```
 
@@ -63,7 +63,7 @@ Let's implement the following feature:
 
 First, run the scaffolder:
 
-```
+```ruby
 rails generate super_scaffold Project Team name:text_field
 rake db:migrate
 ```
@@ -74,7 +74,7 @@ Super Scaffolding automatically generates models for you. However, if you want t
 
 For example, generate the model with the standard Rails generator:
 
-```
+```ruby
 rails g model Project team:references name:string
 ```
 
@@ -82,7 +82,7 @@ rails g model Project team:references name:string
 
 Then you can run the scaffolder with the flag:
 
-```
+```ruby
 rails generate super_scaffold Project Team name:text_field --skip-migration-generation
 ```
 
@@ -90,13 +90,13 @@ rails generate super_scaffold Project Team name:text_field --skip-migration-gene
 
 Building on that example, let's implement the following feature:
 
-```
+```ruby
 A project has many goals.
 ```
 
 First, run the scaffolder:
 
-```
+```ruby
 rails generate super_scaffold Goal Project,Team description:text_field
 rake db:migrate
 ```
@@ -113,7 +113,7 @@ Building on the earlier example, consider the following new requirement:
 
 Use the `field` scaffolder to add it throughout the application:
 
-```
+```ruby
 rails generate super_scaffold:field Project description:trix_editor
 rake db:migrate
 ```
@@ -122,13 +122,13 @@ As you can see, when we're using `field`, we don't need to supply the chain of o
 
 If you want to scaffold a new field to use for read-only purposes, add the following option to omit the field from the form and all other files that apply:
 
-```
+```ruby
 rails generate super_scaffold:field Project description:trix_editor{readonly}
 ```
 
 Again, if you would like to automatically generate the migration on your own, pass the `--skip-migration-generation` flag:
 
-```
+```ruby
 rails generate super_scaffold:field Project description:trix_editor --skip-migration-generation
 ```
 
@@ -142,7 +142,7 @@ We have multiple [field partials](http://localhost:3000/docs/field-partials) tha
 
 In this example, let's add a status attribute and present it as buttons:
 
-```
+```ruby
 rails generate super_scaffold:field Project status:buttons
 ```
 
@@ -170,7 +170,7 @@ Although you might think this calls for a reference to `User`, we've learned the
 
 We can accomplish this like so:
 
-```
+```ruby
 rails generate super_scaffold:field Project lead_id:super_select{class_name=Membership}
 rake db:migrate
 ```
@@ -195,13 +195,13 @@ end
 You need to wrap the bits inside the curly brackets with double qoutes, and then add
 `,source=team.memberships.current_and_invited` inside the quotes:
 
-```
+```ruby
 {"class_name=Membership,source=team.memberships.current_and_invited"}
 ```
 
 So the whole command would be:
 
-```
+```ruby
 rails generate super_scaffold:field Project lead_id:super_select{"class_name=Membership,source=team.memberships.current_and_invited"}
 ```
 
@@ -215,7 +215,7 @@ We can accomplish this with a new model, a new join model, and a `super_select` 
 
 First, let's create the tag model:
 
-```
+```ruby
 rails generate super_scaffold Projects::Tag Team name:text_field
 ```
 
@@ -225,7 +225,7 @@ Now, let's create a join model for the has-many-through association.
 
 We're not going to scaffold this model with the typical `rails generate super_scaffold` scaffolder, but some preparation is needed before we can use it with the `field` scaffolder, so we need to do the following:
 
-```
+```ruby
 rails generate super_scaffold:join_model Projects::AppliedTag project_id{class_name=Project} tag_id{class_name=Projects::Tag}
 ```
 
@@ -233,7 +233,7 @@ All we're doing here is specifying the name of the join model, and the two attri
 
 Now that the join model has been prepared, we can use the `field` scaffolder to create the multi-select field:
 
-```
+```ruby
 rails generate super_scaffold:field Project tag_ids:super_select{class_name=Projects::Tag}
 rake db:migrate
 ```
@@ -266,14 +266,14 @@ Make sure you have the `CLOUDINARY_URL` environment variable to use Cloudinary f
 For instance to scaffold a `Project` model with a `logo` image upload.
 Use `image` as a field type for super scaffolding:
 
-```
+```ruby
 rails generate super_scaffold Project Team name:text_field logo:image
 rake db:migrate
 ```
 
 Under the hood, Bullet Train will generate your model with the following command:
 
-```
+```ruby
 rails generate super_scaffold Project Team name:text_field
 rake db:migrate
 ```
@@ -285,14 +285,14 @@ When you scaffold your model we generate an `attachment` type attribute.
 For instance to scaffold a `Project` model with a `logo` image upload.
 Use `image` as a field type for super scaffolding:
 
-```
+```ruby
 rails generate super_scaffold Project Team name:text_field logo:image
 rake db:migrate
 ```
 
 Under the hood, Bullet Train will generate your model with the following command:
 
-```
+```ruby
 rails generate super_scaffold Project Team name:text_field
 rake db:migrate
 ```

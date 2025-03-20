@@ -1,4 +1,6 @@
-## Regra de Negócio: Acesso Público vs. Acesso Autenticado
+# Regra de Negócio: Acesso Público vs. Acesso Autenticado
+
+## Usuários não logados vs. Usuários logados
 
 1. **Usuários não logados**:
    - Podem acessar todas as calculadoras
@@ -81,8 +83,8 @@ Rails.application.routes.draw do
 end
 ```
 
-4. Views
-Precisamos criar views para os controllers públicos que mostrem apenas o último cálculo:
+4.Views
+  Precisamos criar views para os controllers públicos que mostrem apenas o último cálculo:
 
 ```html
 <!-- app/views/public/calculators/pregnancy/index.html.erb -->
@@ -192,3 +194,21 @@ Criar as views na pasta correspondente
 Adicionar as traduções necessárias nos arquivos YAML
 
 Isso garantirá que tudo funcione corretamente dentro do ecossistema do Bullet Train.
+
+
+
+estamos tendo muitos problemas com essa implementação porque o usuário logado tem acesso ao painel administrativo.
+
+Acho que vamos ter que mudar o gerenciamento de usuários / permissões:
+
+1.  Criar "Roles" para usuários ( Admin | Publisher | User )
+   - Admin - tem acesso total (será criado via 'seed.rb',  pode criar outros Users e atribuir 'Roles':  Publisher ou  User  );
+   - Publishers - tem acesso ao painel Administrativo (Account/Dashboard), pode gerenciar Articles e Categories, não podem criar outros Users.
+   - Users - mesmo logados têm acesso  apenas às views "Public".
+
+Apesar do mesmo nome, o Dashboard do usuário e o Dashboard de Account são coisas difetentes.
+O Dashboard de Account ou Teams, além dos recursos padrão, conterá apenas o gerenciamento de Articles, Categories e Users.
+
+Aproveito para reforçar a regra de que apenas o Usuário criado via "Seed" conterá a "Role: "admin".
+Usuários criados via Painel administrativos (pelo Admin) poderar ter a "Role" escolhida pelo Amin: Admin | Publisher | User.
+Usuários que se cadastrarem pelo formulário padrão de Sign Up terão o "Role" padrão: "user"

@@ -1,0 +1,113 @@
+en:
+  articles: &articles
+    label: &label Articles
+    breadcrumbs:
+      label: Articles
+    navigation:
+      label: Articles
+      icon: ti ti-write
+    buttons: &buttons
+      new: Add New Article
+      create: Create Article
+      edit: Edit Article
+      update: Update Article
+      destroy: Remove Article
+      shorthand:
+        edit: Edit
+        destroy: Delete
+      confirmations:
+        # TODO customize for your use-case.
+        destroy: Are you sure you want to remove %{article_name}? This will also remove any child resources and can't be undone.
+    article:
+      buttons: *buttons
+    fields: &fields
+      id:
+        heading: Article ID
+      team_id:
+        heading: Team ID
+      title:
+        _: &title Title
+        label: *title
+        heading: *title
+        api_title: *title
+        api_description: *title
+      content:
+        _: &content Content
+        label: *content
+        heading: *content
+        api_title: *content
+        api_description: *content
+      content_image:
+        _: &content_image Content Image
+        label: *content_image
+        heading: *content_image
+        api_title: *content_image
+        api_description: *content_image
+      cover:
+        _: &cover Cover
+        label: *cover
+        heading: *cover
+        api_title: *cover
+        api_description: *cover
+      # 🚅 super scaffolding will insert new fields above this line.
+      created_at:
+        _: &created_at Added
+        label: *created_at
+        heading: *created_at
+      updated_at:
+        _: &updated_at Updated
+        label: *updated_at
+        heading: *updated_at
+    api:
+      collection_actions: "Collection Actions for Articles"
+      index: "List Articles"
+      create: "Add a New Article"
+      member_actions: "Actions for an Individual Article"
+      show: "Retrieve a Article"
+      update: "Update a Article"
+      destroy: "Delete a Article"
+      fields: *fields
+    index:
+      section: "%{teams_possessive} Articles"
+      contexts:
+        team:
+          header: Articles
+          description: Below is a list of Articles that have been added for %{team_name}.
+          description_empty: No Articles have been added for %{team_name}.
+      fields: *fields
+      buttons: *buttons
+    show:
+      section: "%{article_name}"
+      header: Article Details
+      description: Below are the details we have for %{article_name}.
+      manage_description: You'll also find options for updating these details or removing %{article_name} from %{team_name} entirely.
+      fields: *fields
+      buttons: *buttons
+    form: &form
+      buttons: *buttons
+      fields: *fields
+    new:
+      section: "New Article for %{team_name}"
+      header: New Article Details
+      description: Please provide the details of the new Article you'd like to add to %{team_name}.
+      form: *form
+    edit:
+      section: "%{article_name}"
+      header: Edit Article Details
+      description: You can update the details or settings for %{article_name} below.
+      form: *form
+    notifications:
+      created: Article was successfully created.
+      updated: Article was successfully updated.
+      destroyed: Article was successfully destroyed.
+  account:
+    articles: *articles
+  activerecord:
+    attributes:
+      article:
+        content: *content
+        content_image: *content_image
+        cover: *cover
+        # 🚅 super scaffolding will insert new activerecord attributes above this line.
+        created_at: *created_at
+        updated_at: *updated_at

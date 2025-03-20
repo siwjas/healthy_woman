@@ -10,6 +10,6 @@ class Public::HomeController < Public::ApplicationController
   include DocumentationSupport
 
   def index
-    @articles = Articles::Article.includes(:categories).order(created_at: :desc)
+    # @articles = Articles::Article.includes(:categories).order(created_at: :desc)
   end
 end

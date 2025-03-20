@@ -1,9 +1,10 @@
 # See `config/routes.rb` for details.
-collection_actions = [:index, :new, :create] # standard:disable Lint/UselessAssignment
+# collection_actions = [:index, :new, :create] # standard:disable Lint/UselessAssignment
 extending = {only: []}
 
 shallow do
   namespace :v1 do
+      draw "public"
     # user specific resources.
     resources :users, extending do
       namespace :oauth do
@@ -31,11 +32,7 @@ shallow do
         # 🚅 super scaffolding will insert new integration installations above this line.
       end
 
-      namespace :articles do
-        resources :categories do
-          resources :articles
-        end
-      end
+      resources :articles
     end
   end
 end

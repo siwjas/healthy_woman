@@ -1,8 +1,0 @@
-<% category ||= @category %>
-<% team ||= @team || category&.team %>
-<%= render 'account/teams/breadcrumbs', team: team %>
-<%= render 'account/shared/breadcrumb', label: t('.label'), url: [:account, team, :articles_categories] %>
-<% if category&.persisted? %>
-  <%= render 'account/shared/breadcrumb', label: category.label_string, url: [:account, category] %>
-<% end %>
-<%= render 'account/shared/breadcrumbs/actions', only_for: 'articles/categories' %>

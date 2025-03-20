@@ -1,7 +1,0 @@
-en:
-  account:
-    articles:
-      articles:
-        show:
-          description: "This is the details page for %{article_name}."
-          manage_description: "You'll also find options for updating these details or removing %{article_name}." 

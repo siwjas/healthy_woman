@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_14_021618) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_20_024206) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -84,51 +84,26 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_14_021618) do
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
   end
 
-  create_table "articles_articles", force: :cascade do |t|
+  create_table "articles", force: :cascade do |t|
+    t.bigint "team_id", null: false
     t.string "title"
     t.text "content"
-    t.string "published"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "team_id", null: false
-    t.index ["team_id"], name: "index_articles_articles_on_team_id"
-  end
-
-  create_table "articles_categories", force: :cascade do |t|
-    t.bigint "team_id", null: false
-    t.string "name"
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["team_id"], name: "index_articles_categories_on_team_id"
-  end
-
-  create_table "articles_categorizations", force: :cascade do |t|
-    t.bigint "article_id", null: false
-    t.bigint "category_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "is_primary", default: false
-    t.index ["article_id", "category_id"], name: "index_articles_categorizations_on_article_id_and_category_id", unique: true
-    t.index ["article_id"], name: "index_articles_categorizations_on_article_id"
-    t.index ["category_id"], name: "index_articles_categorizations_on_category_id"
+    t.index ["team_id"], name: "index_articles_on_team_id"
   end
 
   create_table "bmi_calculators", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.decimal "weight", precision: 5, scale: 2, null: false
-    t.decimal "height", precision: 3, scale: 2, null: false
+    t.bigint "team_id", null: false
+    t.decimal "weight", precision: 5, scale: 2
+    t.decimal "height", precision: 3, scale: 2
     t.decimal "bmi", precision: 4, scale: 2
-    t.boolean "is_pregnant", default: false
-    t.decimal "pre_pregnancy_weight", precision: 5, scale: 2
     t.decimal "weight_goal", precision: 5, scale: 2
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "team_id", null: false
+    t.index ["team_id", "created_at"], name: "index_bmi_calculators_on_team_id_and_created_at"
     t.index ["team_id"], name: "index_bmi_calculators_on_team_id"
-    t.index ["user_id", "created_at"], name: "index_bmi_calculators_on_user_id_and_created_at"
-    t.index ["user_id"], name: "index_bmi_calculators_on_user_id"
   end
 
   create_table "integrations_stripe_installations", force: :cascade do |t|
@@ -172,25 +147,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_14_021618) do
     t.index ["platform_agent_of_id"], name: "index_memberships_on_platform_agent_of_id"
     t.index ["team_id"], name: "index_memberships_on_team_id"
     t.index ["user_id"], name: "index_memberships_on_user_id"
-  end
-
-  create_table "menstrual_cycle_calculators", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.date "last_period_date", null: false
-    t.integer "cycle_length", default: 28
-    t.integer "period_duration", default: 5
-    t.date "fertility_window_start"
-    t.date "fertility_window_end"
-    t.date "ovulation_date"
-    t.date "next_period_date"
-    t.text "notes"
-    t.jsonb "symptoms"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "team_id", null: false
-    t.index ["team_id"], name: "index_menstrual_cycle_calculators_on_team_id"
-    t.index ["user_id", "created_at"], name: "index_menstrual_cycle_calculators_on_user_id_and_created_at"
-    t.index ["user_id"], name: "index_menstrual_cycle_calculators_on_user_id"
   end
 
   create_table "oauth_access_grants", force: :cascade do |t|
@@ -248,21 +204,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_14_021618) do
     t.datetime "updated_at", precision: nil, null: false
     t.index ["uid"], name: "index_oauth_stripe_accounts_on_uid", unique: true
     t.index ["user_id"], name: "index_oauth_stripe_accounts_on_user_id"
-  end
-
-  create_table "pregnancy_calculators", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.date "last_menstrual_period_date", null: false
-    t.date "due_date"
-    t.integer "weeks"
-    t.integer "days"
-    t.text "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "team_id", null: false
-    t.index ["team_id"], name: "index_pregnancy_calculators_on_team_id"
-    t.index ["user_id", "created_at"], name: "index_pregnancy_calculators_on_user_id_and_created_at"
-    t.index ["user_id"], name: "index_pregnancy_calculators_on_user_id"
   end
 
   create_table "scaffolding_absolutely_abstract_creative_concepts", force: :cascade do |t|
@@ -354,6 +295,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_14_021618) do
     t.datetime "locked_at"
     t.decimal "height"
     t.date "date_of_birth"
+    t.boolean "is_pregnant", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["platform_agent_of_id"], name: "index_users_on_platform_agent_of_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -428,12 +370,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_14_021618) do
   add_foreign_key "account_onboarding_invitation_lists", "teams"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "articles_articles", "teams"
-  add_foreign_key "articles_categories", "teams"
-  add_foreign_key "articles_categorizations", "articles_articles", column: "article_id"
-  add_foreign_key "articles_categorizations", "articles_categories", column: "category_id"
+  add_foreign_key "articles", "teams"
   add_foreign_key "bmi_calculators", "teams"
-  add_foreign_key "bmi_calculators", "users"
   add_foreign_key "integrations_stripe_installations", "oauth_stripe_accounts"
   add_foreign_key "integrations_stripe_installations", "teams"
   add_foreign_key "invitations", "account_onboarding_invitation_lists", column: "invitation_list_id"
@@ -443,14 +381,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_14_021618) do
   add_foreign_key "memberships", "oauth_applications", column: "platform_agent_of_id"
   add_foreign_key "memberships", "teams"
   add_foreign_key "memberships", "users"
-  add_foreign_key "menstrual_cycle_calculators", "teams"
-  add_foreign_key "menstrual_cycle_calculators", "users"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_applications", "teams"
   add_foreign_key "oauth_stripe_accounts", "users"
-  add_foreign_key "pregnancy_calculators", "teams"
-  add_foreign_key "pregnancy_calculators", "users"
   add_foreign_key "scaffolding_absolutely_abstract_creative_concepts", "teams"
   add_foreign_key "scaffolding_completely_concrete_tangible_things", "scaffolding_absolutely_abstract_creative_concepts", column: "absolutely_abstract_creative_concept_id"
   add_foreign_key "scaffolding_completely_concrete_tangible_things_assignments", "memberships"

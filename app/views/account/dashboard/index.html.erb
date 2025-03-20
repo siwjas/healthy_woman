@@ -3,121 +3,26 @@
   
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
     <!-- Artigos Recentes -->
-    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8">
+    <div class="bg-white border borcer-2 border-gray-300 shadow-md rounded-lg px-8 py-6 pb-8">
       <h2 class="text-xl font-bold mb-4">Artigos Recentes</h2>
       <% if @recent_articles.any? %>
         <ul class="divide-y divide-gray-200">
           <% @recent_articles.each do |article| %>
             <li class="py-3">
-              <%= link_to article.title, account_articles_article_path(article), class: "text-indigo-600 hover:text-indigo-900" %>
+              <%= link_to article.title, 
+                  account_article_path(article), 
+                  class: "text-indigo-600 hover:text-indigo-900" %>
             </li>
           <% end %>
         </ul>
         <div class="mt-4">
-          <%= link_to "Ver todos", account_team_articles_articles_path(current_team), class: "text-indigo-600 hover:text-indigo-900" %>
+          <%= link_to "Ver todos", 
+              account_team_articles_path(current_team), 
+              class: "text-indigo-600 hover:text-indigo-900" %>
         </div>
       <% else %>
         <p class="text-gray-500">Não há artigos recentes.</p>
       <% end %>
-    </div>
-    
-    <!-- Categorias -->
-    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8">
-      <h2 class="text-xl font-bold mb-4">Categorias</h2>
-      <% if @recent_categories.any? %>
-        <ul class="divide-y divide-gray-200">
-          <% @recent_categories.each do |category| %>
-            <li class="py-3">
-              <%= link_to category.name, account_articles_category_path(category), class: "text-indigo-600 hover:text-indigo-900" %>
-            </li>
-          <% end %>
-        </ul>
-        <div class="mt-4">
-          <%= link_to "Ver todas", account_team_articles_categories_path(current_team), class: "text-indigo-600 hover:text-indigo-900" %>
-        </div>
-      <% else %>
-        <p class="text-gray-500">Não há categorias recentes.</p>
-      <% end %>
-    </div>
-  </div>
-  
-  <h2 class="text-xl font-bold mb-4">Suas Calculadoras</h2>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    <!-- Calculadora de Gravidez -->
-    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8">
-      <h3 class="text-lg font-bold mb-3">Gravidez</h3>
-      <% if @recent_pregnancy_calculators.any? %>
-        <ul class="divide-y divide-gray-200">
-          <% @recent_pregnancy_calculators.each do |calc| %>
-            <li class="py-3">
-              <p class="text-sm">
-                Data da última menstruação: <%= calc.last_menstrual_period_date.strftime("%d/%m/%Y") %>
-              </p>
-              <p class="text-xs text-gray-500">
-                <%= time_ago_in_words(calc.created_at) %> atrás
-              </p>
-            </li>
-          <% end %>
-        </ul>
-        <div class="mt-4">
-          <%= link_to "Ver todos", account_team_pregnancy_calculators_path(current_team), class: "text-indigo-600 hover:text-indigo-900" %>
-        </div>
-      <% else %>
-        <p class="text-gray-500">Você ainda não tem cálculos de gravidez.</p>
-      <% end %>
-      <div class="mt-4">
-        <%= link_to "Nova calculadora", new_account_team_pregnancy_calculator_path(current_team), class: "bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold py-2 px-4 rounded" %>
-      </div>
-    </div>
-    
-    <!-- Calculadora de Ciclo Menstrual -->
-    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8">
-      <h3 class="text-lg font-bold mb-3">Ciclo Menstrual</h3>
-      <% if @recent_menstrual_cycle_calculators.any? %>
-        <ul class="divide-y divide-gray-200">
-          <% @recent_menstrual_cycle_calculators.each do |calc| %>
-            <li class="py-3">
-              <!-- Conteúdo específico para ciclo menstrual -->
-              <p class="text-xs text-gray-500">
-                <%= time_ago_in_words(calc.created_at) %> atrás
-              </p>
-            </li>
-          <% end %>
-        </ul>
-        <div class="mt-4">
-          <%= link_to "Ver todos", account_team_menstrual_cycle_calculators_path(current_team), class: "text-indigo-600 hover:text-indigo-900" %>
-        </div>
-      <% else %>
-        <p class="text-gray-500">Você ainda não tem cálculos de ciclo menstrual.</p>
-      <% end %>
-      <div class="mt-4">
-        <%= link_to "Nova calculadora", new_account_team_menstrual_cycle_calculator_path(current_team), class: "bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold py-2 px-4 rounded" %>
-      </div>
-    </div>
-    
-    <!-- Calculadora de IMC -->
-    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8">
-      <h3 class="text-lg font-bold mb-3">IMC</h3>
-      <% if @recent_bmi_calculators.any? %>
-        <ul class="divide-y divide-gray-200">
-          <% @recent_bmi_calculators.each do |calc| %>
-            <li class="py-3">
-              <!-- Conteúdo específico para IMC -->
-              <p class="text-xs text-gray-500">
-                <%= time_ago_in_words(calc.created_at) %> atrás
-              </p>
-            </li>
-          <% end %>
-        </ul>
-        <div class="mt-4">
-          <%= link_to "Ver todos", account_team_bmi_calculators_path(current_team), class: "text-indigo-600 hover:text-indigo-900" %>
-        </div>
-      <% else %>
-        <p class="text-gray-500">Você ainda não tem cálculos de IMC.</p>
-      <% end %>
-      <div class="mt-4">
-        <%= link_to "Nova calculadora", new_account_team_bmi_calculator_path(current_team), class: "bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold py-2 px-4 rounded" %>
-      </div>
     </div>
   </div>
 </div> 

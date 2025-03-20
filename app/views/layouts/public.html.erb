@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Mulher Saudável</title>
+    <title><%= content_for?(:title) ? yield(:title) : "Mulher Saudável" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'https://rsms.me/inter/inter.css', media: 'all', 'data-turbo-track': 'reload' %>
+    <%= stylesheet_link_tag 'https://rsms.me/inter/inter.css', media: 'all' %>
     <link href="<%= image_path('logo/favicon.png') %>" rel="shortcut icon" />
     <link href="<%= image_path('logo/icon.png') %>" rel="apple-touch-icon" />
-    <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
-    <%= javascript_include_tag 'application.light', 'data-turbo-track': 'reload' %>
-    <%= stylesheet_link_tag 'application.light', media: 'all', 'data-turbo-track': 'reload' %>
+    
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= stylesheet_link_tag 'application.light', media: 'all' %>
+    
+    <%# JavaScript no head com defer %>
+    <%= javascript_include_tag "application", defer: true %>
+    
+    <%# Debug %>
+    <script>
+      console.log("Layout loaded");
+      document.addEventListener('DOMContentLoaded', () => {
+        console.log("Application JS path:", document.querySelector('script[src*="application"]')?.src);
+        console.log("Stimulus available?", typeof window.Stimulus !== 'undefined');
+      });
+    </script>
   </head>
 
   <body class="bg-gray-50">
@@ -30,47 +41,13 @@
       </div>
     <% end %>
     
-    <main>
+    <main class="py-8">
       <%= yield %>
     </main>
     
-    <footer class="bg-gray-800 text-white py-8 mt-12">
-      <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <h3 class="text-lg font-bold mb-4">Mulher Saudável</h3>
-            <p class="text-gray-300">Sua plataforma completa para acompanhamento da saúde feminina, gravidez e bem-estar.</p>
-          </div>
-          
-          <div>
-            <h3 class="text-lg font-bold mb-4">Links Rápidos</h3>
-            <ul class="space-y-2">
-              <li><%= link_to "Home", root_path, class: "text-gray-300 hover:text-white" %></li>
-              <li><%= link_to "Calculadora de Gravidez", calculators_pregnancy_path, class: "text-gray-300 hover:text-white" %></li>
-              <li><%= link_to "Ciclo Menstrual", calculators_menstrual_cycle_path, class: "text-gray-300 hover:text-white" %></li>
-              <li><%= link_to "Calculadora de IMC", calculators_bmi_path, class: "text-gray-300 hover:text-white" %></li>
-              <li><%= link_to "Artigos", articles_path, class: "text-gray-300 hover:text-white" %></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 class="text-lg font-bold mb-4">Conta</h3>
-            <ul class="space-y-2">
-              <% if user_signed_in? %>
-                <li><%= link_to "Dashboard", "#", class: "text-gray-300 hover:text-white" %></li>
-                <li><%= button_to "Sair", destroy_user_session_path, method: :delete, class: "text-gray-300 hover:text-white bg-transparent border-0 p-0 cursor-pointer" %></li>
-              <% else %>
-                <li><%= link_to "Entrar", new_user_session_path, class: "text-gray-300 hover:text-white" %></li>
-                <li><%= link_to "Cadastrar", new_user_registration_path, class: "text-gray-300 hover:text-white" %></li>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; <%= Date.current.year %> Mulher Saudável. Todos os direitos reservados.</p>
-        </div>
-      </div>
-    </footer>
+    <%= render "public/shared/footer" %>
+    
+    <%# Scripts específicos da página %>
+    <%= yield :page_javascript %>
   </body>
 </html>

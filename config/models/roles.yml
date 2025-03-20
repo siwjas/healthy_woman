@@ -1,7 +1,6 @@
 default:
   models:
-    Articles::Article: read
-    Articles::Category: read
+    Article: read
     Team: read
     Membership:
       - read
@@ -18,6 +17,7 @@ default:
 
 editor:
   models:
+    Article: manage
     Scaffolding::CompletelyConcrete::TangibleThing: manage
     Scaffolding::AbsolutelyAbstract::CreativeConcept:
       - read
@@ -30,8 +30,6 @@ admin:
     - admin
     - editor
   models:
-    Articles::Article: manage
-    Articles::Category: manage
     Team: manage
     Membership: manage
     Scaffolding::AbsolutelyAbstract::CreativeConcept: manage

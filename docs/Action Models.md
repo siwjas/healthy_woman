@@ -62,7 +62,7 @@ Don't forget to run `bundle install` and `rails restart`.
 
 You can get detailed information about using Super Scaffolding to generate different types of Action Models like so:
 
-```
+```ruby
 rails generate super_scaffold:action_models:targets_many
 rails generate super_scaffold:action_models:targets_one
 rails generate super_scaffold:action_models:targets_one_parent
@@ -72,19 +72,19 @@ rails generate super_scaffold:action_models:performs_export
 
 ## Basic Example
 
-### 1. Generate and scaffold an example `Project` model.
+### 1. Generate and scaffold an example `Project` model
 
-```
+```ruby
 rails generate super_scaffold Project Team name:text_field
 ```
 
-### 2. Generate and scaffold an archive action for projects.
+### 2. Generate and scaffold an archive action for projects
 
-```
+```ruby
 rails generate super_scaffold:action_models:targets_many Archive Project Team
 ```
 
-### 3. Implement the action logic.
+### 3. Implement the action logic
 
 Open `app/models/projects/archive_action.rb` and update the implementation of this method:
 
@@ -98,13 +98,13 @@ You're done!
 
 ## Additional Examples
 
-### Add configuration options to an action.
+### Add configuration options to an action
 
 Because Action Models are just regular models, you can add new fields to them with Super Scaffolding the same as any other model. This is an incredible strength, because it means the configuration options for your Action Models can leverage the entire suite of form field types available in Bullet Train, and maintaining the presentation of those options to users is like maintaining any other model form in your application.
 
 For example:
 
-```
+```ruby
 # side quest: update the generated migration with `default: false` on the new boolean field.
 rails g super_scaffold:crud_field Projects::ArchiveAction notify_users:boolean
 ```

@@ -3,6 +3,7 @@
 ## Models Overview
 
 ### User
+
 - Responsibilities: Store user information and authentication details
 - Relationships:
   - Has many `pregnancy_calculators` (dependent: :destroy)
@@ -10,23 +11,27 @@
   - Has many `bmi_calculators` (dependent: :destroy)
 
 ### PregnancyCalculator
+
 - Responsibilities: Calculate and store pregnancy-related information
 - Relationships:
   - Belongs to `user`
 
 ### MenstrualCycleCalculator
+
 - Responsibilities: Calculate and store menstrual cycle and fertility information
 - Relationships:
   - Belongs to `user`
 
 ### BmiCalculator
+
 - Responsibilities: Calculate and store BMI and weight-related information
 - Relationships:
   - Belongs to `user`
 
 ## Detailed Model Specifications
 
-### User
+### User [model]
+
 ```ruby
 # app/models/user.rb
 class User < ApplicationRecord
@@ -60,7 +65,8 @@ class User < ApplicationRecord
 end
 ```
 
-### PregnancyCalculator
+### PregnancyCalculator [model]
+
 ```ruby
 # app/models/pregnancy_calculator.rb
 class PregnancyCalculator < ApplicationRecord
@@ -105,7 +111,8 @@ class PregnancyCalculator < ApplicationRecord
 end
 ```
 
-### MenstrualCycleCalculator
+### MenstrualCycleCalculator [model]
+
 ```ruby
 # app/models/menstrual_cycle_calculator.rb
 class MenstrualCycleCalculator < ApplicationRecord
@@ -149,7 +156,8 @@ class MenstrualCycleCalculator < ApplicationRecord
 end
 ```
 
-### BmiCalculator
+### BmiCalculator [model]
+
 ```ruby
 # app/models/bmi_calculator.rb
 class BmiCalculator < ApplicationRecord
@@ -214,6 +222,7 @@ end
 ## Database Migrations
 
 ### Users Table
+
 ```ruby
 class CreateUsers < ActiveRecord::Migration[8.0]
   def change
@@ -222,7 +231,6 @@ class CreateUsers < ActiveRecord::Migration[8.0]
       t.string  :encrypted_password, null: false
       t.string  :first_name, null: false
       t.string  :last_name, null: false
-      t.date    :date_of_birth
       t.decimal :height, null: false, precision: 5, scale: 2
       t.string  :phone_number
       t.boolean :agreed_to_terms, default: false
@@ -252,6 +260,7 @@ end
 ```
 
 ### Pregnancy Calculators Table
+
 ```ruby
 class CreatePregnancyCalculators < ActiveRecord::Migration[8.0]
   def change
@@ -271,6 +280,7 @@ end
 ```
 
 ### Menstrual Cycle Calculators Table
+
 ```ruby
 class CreateMenstrualCycleCalculators < ActiveRecord::Migration[8.0]
   def change
@@ -293,6 +303,7 @@ end
 ```
 
 ### BMI Calculators Table
+
 ```ruby
 class CreateBmiCalculators < ActiveRecord::Migration[8.0]
   def change
